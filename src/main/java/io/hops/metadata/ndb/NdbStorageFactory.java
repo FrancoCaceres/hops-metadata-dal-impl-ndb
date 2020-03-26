@@ -117,6 +117,7 @@ public class NdbStorageFactory implements DalStorageFactory {
     dataAccessMap.put(RMNodeApplicationsDataAccess.class,
             new RMNodeApplicationsClusterJ());
     dataAccessMap.put(BlockInfoDataAccess.class, new BlockInfoClusterj());
+    dataAccessMap.put(S3ObjectInfoDataAccess.class, new S3ObjectInfoClusterj());
     dataAccessMap.put(PendingBlockDataAccess.class, new PendingBlockClusterj());
     dataAccessMap.put(ReplicaUnderConstructionDataAccess.class,
             new ReplicaUnderConstructionClusterj());
@@ -149,6 +150,9 @@ public class NdbStorageFactory implements DalStorageFactory {
             .put(EncodingStatusDataAccess.class, new EncodingStatusClusterj() {
             });
     dataAccessMap.put(BlockLookUpDataAccess.class, new BlockLookUpClusterj());
+    dataAccessMap.put(S3ObjectLookUpDataAccess.class, new S3ObjectLookUpClusterj());
+    dataAccessMap.put(S3ObjectDeletableDataAccess.class, new S3ObjectDeletableClusterj());
+    dataAccessMap.put(S3ProcessableDataAccess.class, new S3ProcessableClusterj());
     dataAccessMap.put(SafeBlocksDataAccess.class, new SafeBlocksClusterj());
     dataAccessMap.put(MisReplicatedRangeQueueDataAccess.class,
             new MisReplicatedRangeQueueClusterj());

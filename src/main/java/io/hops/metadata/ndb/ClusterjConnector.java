@@ -248,6 +248,8 @@ public class ClusterjConnector implements StorageConnector<DBSession> {
     Class cls = null;
     if (className == BlockInfoDataAccess.class) {
       cls = BlockInfoClusterj.BlockInfoDTO.class;
+    } else if (className == S3ObjectInfoDataAccess.class) {
+      cls = S3ObjectInfoClusterj.DTO.class;
     } else if (className == PendingBlockDataAccess.class) {
       cls = PendingBlockClusterj.PendingBlockDTO.class;
     } else if (className == ReplicaUnderConstructionDataAccess.class) {
@@ -349,17 +351,17 @@ public class ClusterjConnector implements StorageConnector<DBSession> {
         INodeDataAccess.class, InMemoryInodeDataAccess.class,
         SmallOnDiskInodeDataAccess.class, MediumOnDiskInodeDataAccess.class,
         LargeOnDiskInodeDataAccess.class,
-        BlockInfoDataAccess.class, LeaseDataAccess.class,
+        BlockInfoDataAccess.class, S3ObjectInfoDataAccess.class, LeaseDataAccess.class,
         LeasePathDataAccess.class, ReplicaDataAccess.class,
         ReplicaUnderConstructionDataAccess.class,
         InvalidateBlockDataAccess.class, ExcessReplicaDataAccess.class,
         PendingBlockDataAccess.class, CorruptReplicaDataAccess.class,
         UnderReplicatedBlockDataAccess.class, HdfsLeDescriptorDataAccess.class,
         DirectoryWithQuotaFeatureDataAccess.class, StorageIdMapDataAccess.class,
-        BlockLookUpDataAccess.class, SafeBlocksDataAccess.class,
+        BlockLookUpDataAccess.class, S3ObjectLookUpDataAccess.class, SafeBlocksDataAccess.class,
         MisReplicatedRangeQueueDataAccess.class, QuotaUpdateDataAccess.class,
         EncodingStatusDataAccess.class, BlockChecksumDataAccess.class,
-        OngoingSubTreeOpsDataAccess.class,
+        OngoingSubTreeOpsDataAccess.class, S3ObjectDeletableDataAccess.class, S3ProcessableDataAccess.class,
         MetadataLogDataAccess.class, EncodingJobsDataAccess.class,
         RepairJobsDataAccess.class, UserDataAccess.class, GroupDataAccess.class,
         UserGroupDataAccess.class,VariableDataAccess.class,
@@ -410,6 +412,9 @@ public class ClusterjConnector implements StorageConnector<DBSession> {
           } else if (e == BlockInfoDataAccess.class) {
             MysqlServerConnector
                 .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.BlockInfoTableDef.TABLE_NAME);
+          } else if (e == S3ObjectInfoDataAccess.class) {
+            MysqlServerConnector
+                    .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.S3ObjectInfoTableDef.TABLE_NAME);
           } else if (e == LeaseDataAccess.class) {
             MysqlServerConnector
                 .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.LeaseTableDef.TABLE_NAME);
@@ -466,6 +471,15 @@ public class ClusterjConnector implements StorageConnector<DBSession> {
           } else if (e == BlockLookUpDataAccess.class) {
             MysqlServerConnector
                 .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.BlockLookUpTableDef.TABLE_NAME);
+          } else if (e == S3ObjectLookUpDataAccess.class) {
+            MysqlServerConnector
+                    .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.S3ObjectLookUpTableDef.TABLE_NAME);
+          } else if (e == S3ObjectDeletableClusterj.class) {
+            MysqlServerConnector
+                    .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.S3ObjectDeletableTableDef.TABLE_NAME);
+          } else if (e == S3ProcessableClusterj.class) {
+            MysqlServerConnector
+                    .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.S3ProcessableTableDef.TABLE_NAME);
           } else if (e == SafeBlocksDataAccess.class) {
             MysqlServerConnector
                 .truncateTable(transactional, io.hops.metadata.hdfs.TablesDef.SafeBlocksTableDef.TABLE_NAME);
